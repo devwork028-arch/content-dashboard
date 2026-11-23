@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-[#101112] text-zinc-100 antialiased;
+  }
+  input,
+  textarea,
+  select {
+    @apply w-full rounded-md border border-zinc-700 bg-[#111315] p-2 text-sm text-zinc-100 focus:outline focus:outline-1 focus:outline-lime-300;
+  }
+  label {
+    @apply grid gap-1 text-sm text-zinc-300;
+  }
+  h1 {
+    @apply text-3xl font-bold tracking-tight;
+  }
+  h2 {
+    @apply text-lg font-semibold;
+  }
+  a {
+    @apply decoration-lime-400 underline-offset-4;
+  }
+  th,
+  td {
+    @apply p-2 text-left align-top;
+  }
+}
+@layer components {
+  .panel {
+    @apply rounded-xl border border-zinc-800 bg-[#191b1d] p-4 md:p-5;
+  }
+  .muted {
+    @apply text-sm text-zinc-400;
+  }
+  .badge {
+    @apply rounded bg-zinc-800 px-2 py-1 text-xs font-medium;
+  }
+}
