@@ -2,6 +2,8 @@
 
 Private English/Hinglish gaming-comedy workspace. This build includes owner login, Script Studio with revision history, per-script metadata, an IST calendar, competitor observations, public research adapters, research preferences and the planning dashboard. Write the dialogue yourself. Calendar entries track production and do not publish posts.
 
+For a first installation, follow the [Windows setup and account creation guide](docs/setup.md). It takes you from Git Bash installation to your first saved script, then through each optional account connection.
+
 ## First local run on Windows
 Use Git Bash with Node 22 or newer, or the latest Node 20.x patch. Clone the application branch and generate your local configuration:
 
