@@ -1,17 +1,28 @@
-# Content Desk — writing and planning build
+# Content Desk
 
 Private English/Hinglish gaming-comedy workspace. This build includes owner login, Script Studio with revision history, per-script metadata, an IST calendar, competitor observations, public research adapters, research preferences and the planning dashboard. Write the dialogue yourself. Calendar entries track production and do not publish posts.
 
 ## First local run on Windows
-Use Git Bash in this folder with Node 22 LTS or newer. Node 20 users should use the latest 20.x patch. Install with `npm ci`. Run `node scripts/setup.mjs` once and save the printed owner password. The setup command creates .env.local and refuses to overwrite an existing file.
+Use Git Bash with Node 22 or newer, or the latest Node 20.x patch. Clone the application branch and generate your local configuration:
 
-Create a Neon Postgres database or a Supabase Postgres project. Paste its connection string (including TLS settings) into DATABASE_URL in .env.local. For Supabase use the session pooler if your network requires IPv4. Keep .env.local private. Run these commands in order:
+```bash
+git clone --branch feature/content-desk --single-branch https://github.com/devwork028-arch/content-dashboard.git
+cd content-dashboard
+npm ci
+npm run setup
+```
 
-    npm run db:migrate
-    npm run seed
-    npm run dev
+Save the owner password printed by setup. Open `.env.local` in your editor and fill in `DATABASE_URL` with the connection string for your Neon or Supabase Content Desk database, including the provider's TLS settings. The file already contains the login secrets and placeholders for optional integrations. Setup preserves an existing file.
 
-Open http://localhost:3000 and sign in. For schema prototyping on a separate disposable database, npm run db:push is also available. Use migrations for the persistent database. Seed inserts a blank practice script, role notes, metadata kit and a calendar entry. Re-running it preserves existing edits.
+```bash
+npm run local
+```
+
+This applies pending migrations, inserts sample records, and starts the development server. Open http://localhost:3000 and sign in with the generated password. For later sessions use `npm run dev`. Run `npm run local` again to apply pending migrations and restore missing samples. Existing sample edits are preserved.
+
+### First laptop check
+
+Open the sample in Script Studio, type a line, wait for **Saved**, then refresh and verify the line and version history. Copy a title from Metadata Kit and move a sample calendar post to another day. Sign out and open a protected page to verify it asks you to sign in. After adding provider credentials, test a read-only sync first. Use a video you own to preview a metadata diff before deciding whether to apply it.
 
 ## Writing workflow
 Create a script, choose trio or solo, and wait for **Saved** before leaving the editor. Changes appear in version history. Restore a version to create a new revision. Select the same script in Metadata Kit, fill in the platform fields, save and copy them when ready. Move calendar items by dragging or editing their IST time. Export the competitor table to get its import headers.
@@ -20,7 +31,7 @@ Create a script, choose trio or solo, and wait for **Saved** before leaving the 
 Use .env.example for research variables. Restrict a Google Cloud API key to YouTube Data API v3 for public research. Configure approved Reddit app credentials and a descriptive user agent to enable Reddit. Publisher feed URLs must point to supported public RSS or Atom feeds. Partial source failures leave cached results available. Cron runs daily at 07:45 IST and requires Authorization: Bearer CRON_SECRET. Keep all secrets server-side.
 
 ## Checks and deployment
-Run npm test, npm run check and npm run build. For Vercel, import a private Git repository containing this folder, select Next.js, set APP_URL to the HTTPS production origin and add the same database and application secrets. Apply migrations before serving traffic. Deploy vercel.json with the project and configure CRON_SECRET for Vercel Cron.
+Run npm test, npm run check and npm run build. For Vercel, import the repository, select Next.js, use the repository root as the project root and select `feature/content-desk` as the production branch while the application lives there. Then set APP_URL to the HTTPS production origin and add the same database and application secrets. Apply migrations before serving traffic. Deploy vercel.json with the project and configure CRON_SECRET for Vercel Cron.
 
 ## YouTube owner setup
 
